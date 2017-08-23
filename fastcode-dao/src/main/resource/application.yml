@@ -1,0 +1,44 @@
+spring:
+     datasource:
+        name: test
+        url: jdbc:mysql://10.25.23.14:3306/db-parking
+        username: root
+        password: Pass1234
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        
+     # MyBatis  
+     mybatis:
+        typeAliasesPackage: com.fastcode.domain.entity
+        mapperLocations: classpath:/mapper/*.xml  
+        configLocation: classpath:/mybatis-config.xml  
+        
+		###################  mybatis-plus配置  ###################
+		mybatis-plus:
+		  mapper-locations: classpath*:mapper/*.xml
+		  typeAliasesPackage: com.fastcode.domain.entity
+		  global-config:
+		    id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+		    db-column-underline: false
+		    refresh-mapper: true
+		  configuration:
+		    map-underscore-to-camel-case: true
+		    cache-enabled: true #配置的缓存的全局开关
+		    lazyLoadingEnabled: true #延时加载的开关
+		    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+		#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+     

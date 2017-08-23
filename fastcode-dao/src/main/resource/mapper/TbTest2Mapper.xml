@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fastcode.mapper.TbTest2Mapper">
+  <resultMap id="BaseResultMap" type="com.fastcode.domain.entity.TbTest2">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="udesc" jdbcType="VARCHAR" property="udesc" />
+  </resultMap>
+</mapper>

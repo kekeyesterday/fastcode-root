@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="fast-code-app" />
+	<!-- 使用multicast广播注册中心暴露服务地址 <dubbo:registry address="multicast://224.5.6.7:1234" 
+		/> -->
+
+	<!-- 使用zookeeper广播注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="10.91.228.69:2181" />
+
+
+	<dubbo:protocol name="rest" server="tomcat" port="8088"
+		contextpath="fastcode" />
+
+	<!-- <dubbo:protocol name="rest" server="servlet"/> -->
+
+
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="com.fastcode.httpApi.IFastApi"
+		ref="fastApiService" />
+	<!-- <bean id="fastApiService" class="com.fastcode.dubbox.impl.FastApiServiceImp" 
+		/> -->
+
+	<!-- 引用dubbo服务 -->
+	<dubbo:reference id="myDemoService" interface="com.fastcode.inf.IMyDemo"
+		version="1.0" check="false" />
+
+	<dubbo:reference id="cacheService" interface="com.fastcode.inf.ICacheService"
+		version="1.0" check="false" cache="lru" />
+
+	<!-- 异步调用 -->
+	<dubbo:reference id="syncService" interface="com.fastcode.inf.ISyncService"
+		async="true" version="1.0" check="false" timeout="3600000">
+		<dubbo:method name="getMsg" async="true" return="true"/>
+	</dubbo:reference>
+
+</beans>
